@@ -70,10 +70,7 @@ void __interrupt() isr(void) //funcion de interrupciones
         PIR1bits.RCIF=0;
         recepcion_uart();
     }
-    if (PIR1bits.ADIF)
-    {
-        
-    }
+ 
 }
 
 /*-----------------------------------------------------------------------------
@@ -242,7 +239,7 @@ uint8_t lcd_ascii()
     random[7]=datos_ascii(((2*(conversion2)/100)%10));    //decenas de potenciometro 2
     random[8]=datos_ascii((2*conversion2)%10);   //unidades de potenciometro 2
     random[9]=32;                       //se deja espacio
-    random[10]=datos_ascii(((conversion1/100)%10));  //centenas de cuenta uart
+    random[10]=datos_ascii(cuenta_uart);  //centenas de cuenta uart
     random[11]=32;      
     random[12]=32;      
     random[13]=32;      

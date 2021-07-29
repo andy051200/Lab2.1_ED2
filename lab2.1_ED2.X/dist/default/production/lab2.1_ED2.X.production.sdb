@@ -31,17 +31,17 @@
 [v _lcd_linea lcd_linea `(v  1 e 1 0 ]
 "64 C:\Users\Andy Bonilla\Documents\GitHub\ED2\Lab2.1_ED2\lab2.1_ED2.X\main_.c
 [v _isr isr `II(v  1 e 1 0 ]
-"82
+"79
 [v _main main `(v  1 e 1 0 ]
-"108
+"105
 [v _setup setup `(v  1 e 1 0 ]
-"154
+"151
 [v _toggle_adc toggle_adc `(v  1 e 1 0 ]
-"182
+"179
 [v _datos_ascii datos_ascii `(uc  1 e 1 0 ]
-"232
+"229
 [v _lcd_ascii lcd_ascii `(uc  1 e 1 0 ]
-"255
+"252
 [v _recepcion_uart recepcion_uart `(v  1 e 1 0 ]
 "19 C:\Users\Andy Bonilla\Documents\GitHub\ED2\Lab2.1_ED2\lab2.1_ED2.X\UART_CONFIG.c
 [v _uart_config uart_config `(v  1 e 1 0 ]
@@ -248,20 +248,20 @@
 [v _cuenta_uart cuenta_uart `uc  1 e 1 0 ]
 "59
 [v _dato_recibido dato_recibido `uc  1 e 1 0 ]
-"82
+"79
 [v _main main `(v  1 e 1 0 ]
 {
-"104
+"101
 } 0
-"154
+"151
 [v _toggle_adc toggle_adc `(v  1 e 1 0 ]
 {
-"178
+"175
 } 0
 "72 C:\Users\Andy Bonilla\Documents\GitHub\ED2\Lab2.1_ED2\lab2.1_ED2.X\LCD.c
 [v _show show `(v  1 e 1 0 ]
 {
-[v show@s s `*.26uc  1 p 2 35 ]
+[v show@s s `*.26uc  1 p 2 34 ]
 "78
 } 0
 "61
@@ -270,13 +270,13 @@
 [v dat@b b `uc  1 a 1 wreg ]
 [v dat@b b `uc  1 a 1 wreg ]
 "63
-[v dat@b b `uc  1 a 1 1 ]
+[v dat@b b `uc  1 a 1 0 ]
 "69
 } 0
-"108 C:\Users\Andy Bonilla\Documents\GitHub\ED2\Lab2.1_ED2\lab2.1_ED2.X\main_.c
+"105 C:\Users\Andy Bonilla\Documents\GitHub\ED2\Lab2.1_ED2\lab2.1_ED2.X\main_.c
 [v _setup setup `(v  1 e 1 0 ]
 {
-"148
+"145
 } 0
 "19 C:\Users\Andy Bonilla\Documents\GitHub\ED2\Lab2.1_ED2\lab2.1_ED2.X\UART_CONFIG.c
 [v _uart_config uart_config `(v  1 e 1 0 ]
@@ -293,13 +293,13 @@
 {
 [v lcd_linea@a a `uc  1 a 1 wreg ]
 "82
-[v lcd_linea@z z `uc  1 a 1 6 ]
-[v lcd_linea@temp temp `uc  1 a 1 5 ]
+[v lcd_linea@z z `uc  1 a 1 5 ]
+[v lcd_linea@temp temp `uc  1 a 1 4 ]
 "81
 [v lcd_linea@a a `uc  1 a 1 wreg ]
-[v lcd_linea@b b `uc  1 p 1 2 ]
+[v lcd_linea@b b `uc  1 p 1 1 ]
 "83
-[v lcd_linea@a a `uc  1 a 1 4 ]
+[v lcd_linea@a a `uc  1 a 1 3 ]
 "97
 } 0
 "36
@@ -318,43 +318,43 @@
 [v cmd@a a `uc  1 a 1 wreg ]
 [v cmd@a a `uc  1 a 1 wreg ]
 "52
-[v cmd@a a `uc  1 a 1 1 ]
+[v cmd@a a `uc  1 a 1 0 ]
 "58
 } 0
-"232 C:\Users\Andy Bonilla\Documents\GitHub\ED2\Lab2.1_ED2\lab2.1_ED2.X\main_.c
+"229 C:\Users\Andy Bonilla\Documents\GitHub\ED2\Lab2.1_ED2\lab2.1_ED2.X\main_.c
 [v _lcd_ascii lcd_ascii `(uc  1 e 1 0 ]
 {
-"234
-[v lcd_ascii@random random `[16]uc  1 a 16 19 ]
-"252
+"231
+[v lcd_ascii@random random `[16]uc  1 a 16 18 ]
+"249
 } 0
-"182
+"179
 [v _datos_ascii datos_ascii `(uc  1 e 1 0 ]
 {
 [v datos_ascii@numero numero `uc  1 a 1 wreg ]
 [v datos_ascii@numero numero `uc  1 a 1 wreg ]
-[v datos_ascii@numero numero `uc  1 a 1 2 ]
-"229
+[v datos_ascii@numero numero `uc  1 a 1 6 ]
+"226
 } 0
 "5 C:\Program Files\Microchip\xc8\v2.31\pic\sources\c90\common\awmod.c
 [v ___awmod __awmod `(i  1 e 2 0 ]
 {
 "10
-[v ___awmod@sign sign `uc  1 a 1 15 ]
-[v ___awmod@counter counter `uc  1 a 1 14 ]
+[v ___awmod@sign sign `uc  1 a 1 14 ]
+[v ___awmod@counter counter `uc  1 a 1 13 ]
 "5
-[v ___awmod@divisor divisor `i  1 p 2 9 ]
-[v ___awmod@dividend dividend `i  1 p 2 11 ]
+[v ___awmod@divisor divisor `i  1 p 2 8 ]
+[v ___awmod@dividend dividend `i  1 p 2 10 ]
 "34
 } 0
 "5 C:\Program Files\Microchip\xc8\v2.31\pic\sources\c90\common\awdiv.c
 [v ___awdiv __awdiv `(i  1 e 2 0 ]
 {
 "10
-[v ___awdiv@quotient quotient `i  1 a 2 7 ]
+[v ___awdiv@quotient quotient `i  1 a 2 6 ]
 "11
-[v ___awdiv@sign sign `uc  1 a 1 6 ]
-[v ___awdiv@counter counter `uc  1 a 1 5 ]
+[v ___awdiv@sign sign `uc  1 a 1 5 ]
+[v ___awdiv@counter counter `uc  1 a 1 4 ]
 "5
 [v ___awdiv@divisor divisor `i  1 p 2 0 ]
 [v ___awdiv@dividend dividend `i  1 p 2 2 ]
@@ -363,10 +363,10 @@
 "64 C:\Users\Andy Bonilla\Documents\GitHub\ED2\Lab2.1_ED2\lab2.1_ED2.X\main_.c
 [v _isr isr `II(v  1 e 1 0 ]
 {
-"77
+"74
 } 0
-"255
+"252
 [v _recepcion_uart recepcion_uart `(v  1 e 1 0 ]
 {
-"268
+"265
 } 0

@@ -17,33 +17,39 @@
 [v ___eecpymem __eecpymem `(v  1 e 1 0 ]
 "39
 [v ___memcpyee __memcpyee `(v  1 e 1 0 ]
-"97 C:\Users\Andy Bonilla\Documents\GitHub\ED2\Lab2.1_ED2\lab2.1_ED2.X\LCD.c
-[v _Lcd_Port Lcd_Port `(v  1 e 1 0 ]
-"102
-[v _Lcd_Init Lcd_Init `(v  1 e 1 0 ]
-"111
-[v _Lcd_Cmd Lcd_Cmd `(v  1 e 1 0 ]
-"127
-[v _Lcd_Set_Cursor Lcd_Set_Cursor `(v  1 e 1 0 ]
-"145
-[v _Lcd_Write_Char Lcd_Write_Char `(v  1 e 1 0 ]
-"155
-[v _Lcd_Write_String Lcd_Write_String `(v  1 e 1 0 ]
-"67 C:\Users\Andy Bonilla\Documents\GitHub\ED2\Lab2.1_ED2\lab2.1_ED2.X\main_.c
+"29 C:\Users\Andy Bonilla\Documents\GitHub\ED2\Lab2.1_ED2\lab2.1_ED2.X\LCD.c
+[v _lcd_clear lcd_clear `(v  1 e 1 0 ]
+"36
+[v _lcd_init lcd_init `(v  1 e 1 0 ]
+"50
+[v _cmd cmd `(v  1 e 1 0 ]
+"61
+[v _dat dat `(v  1 e 1 0 ]
+"72
+[v _show show `(v  1 e 1 0 ]
+"81
+[v _lcd_linea lcd_linea `(v  1 e 1 0 ]
+"64 C:\Users\Andy Bonilla\Documents\GitHub\ED2\Lab2.1_ED2\lab2.1_ED2.X\main_.c
+[v _isr isr `II(v  1 e 1 0 ]
+"78
 [v _main main `(v  1 e 1 0 ]
-"94
+"103
 [v _setup setup `(v  1 e 1 0 ]
-"132
+"144
 [v _toggle_adc toggle_adc `(v  1 e 1 0 ]
-"166
+"172
 [v _datos_ascii datos_ascii `(uc  1 e 1 0 ]
-"218
+"222
 [v _lcd_ascii lcd_ascii `(uc  1 e 1 0 ]
+"245
+[v _recepcion_uart recepcion_uart `(v  1 e 1 0 ]
+"19 C:\Users\Andy Bonilla\Documents\GitHub\ED2\Lab2.1_ED2\lab2.1_ED2.X\UART_CONFIG.c
+[v _uart_config uart_config `(v  1 e 1 0 ]
 "228 C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f887.h
 [v _PORTB PORTB `VEuc  1 e 1 @6 ]
 "352
 [v _PORTD PORTD `VEuc  1 e 1 @8 ]
-[s S111 . 1 `uc 1 RBIF 1 0 :1:0 
+[s S184 . 1 `uc 1 RBIF 1 0 :1:0 
 `uc 1 INTF 1 0 :1:1 
 `uc 1 T0IF 1 0 :1:2 
 `uc 1 RBIE 1 0 :1:3 
@@ -53,14 +59,25 @@
 `uc 1 GIE 1 0 :1:7 
 ]
 "482
-[s S120 . 1 `uc 1 . 1 0 :2:0 
+[s S193 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 TMR0IF 1 0 :1:2 
 `uc 1 . 1 0 :2:3 
 `uc 1 TMR0IE 1 0 :1:5 
 ]
-[u S125 . 1 `S111 1 . 1 0 `S120 1 . 1 0 ]
-[v _INTCONbits INTCONbits `VES125  1 e 1 @11 ]
-[s S382 . 1 `uc 1 RX9D 1 0 :1:0 
+[u S198 . 1 `S184 1 . 1 0 `S193 1 . 1 0 ]
+[v _INTCONbits INTCONbits `VES198  1 e 1 @11 ]
+[s S22 . 1 `uc 1 TMR1IF 1 0 :1:0 
+`uc 1 TMR2IF 1 0 :1:1 
+`uc 1 CCP1IF 1 0 :1:2 
+`uc 1 SSPIF 1 0 :1:3 
+`uc 1 TXIF 1 0 :1:4 
+`uc 1 RCIF 1 0 :1:5 
+`uc 1 ADIF 1 0 :1:6 
+]
+"553
+[u S30 . 1 `S22 1 . 1 0 ]
+[v _PIR1bits PIR1bits `VES30  1 e 1 @12 ]
+[s S470 . 1 `uc 1 RX9D 1 0 :1:0 
 `uc 1 OERR 1 0 :1:1 
 `uc 1 FERR 1 0 :1:2 
 `uc 1 ADDEN 1 0 :1:3 
@@ -70,27 +87,29 @@
 `uc 1 SPEN 1 0 :1:7 
 ]
 "1068
-[s S391 . 1 `uc 1 RCD8 1 0 :1:0 
+[s S479 . 1 `uc 1 RCD8 1 0 :1:0 
 `uc 1 . 1 0 :5:1 
 `uc 1 RC9 1 0 :1:6 
 ]
-[s S395 . 1 `uc 1 . 1 0 :6:0 
+[s S483 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 nRC8 1 0 :1:6 
 ]
-[s S398 . 1 `uc 1 . 1 0 :6:0 
+[s S486 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 RC8_9 1 0 :1:6 
 ]
-[u S401 . 1 `S382 1 . 1 0 `S391 1 . 1 0 `S395 1 . 1 0 `S398 1 . 1 0 ]
-[v _RCSTAbits RCSTAbits `VES401  1 e 1 @24 ]
+[u S489 . 1 `S470 1 . 1 0 `S479 1 . 1 0 `S483 1 . 1 0 `S486 1 . 1 0 ]
+[v _RCSTAbits RCSTAbits `VES489  1 e 1 @24 ]
+"1140
+[v _RCREG RCREG `VEuc  1 e 1 @26 ]
 "1238
 [v _ADRESH ADRESH `VEuc  1 e 1 @30 ]
-[s S143 . 1 `uc 1 ADON 1 0 :1:0 
+[s S235 . 1 `uc 1 ADON 1 0 :1:0 
 `uc 1 GO_nDONE 1 0 :1:1 
 `uc 1 CHS 1 0 :4:2 
 `uc 1 ADCS 1 0 :2:6 
 ]
 "1276
-[s S148 . 1 `uc 1 . 1 0 :1:0 
+[s S240 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 GO 1 0 :1:1 
 `uc 1 CHS0 1 0 :1:2 
 `uc 1 CHS1 1 0 :1:3 
@@ -99,65 +118,79 @@
 `uc 1 ADCS0 1 0 :1:6 
 `uc 1 ADCS1 1 0 :1:7 
 ]
-[s S157 . 1 `uc 1 . 1 0 :1:0 
+[s S249 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 nDONE 1 0 :1:1 
 ]
-[s S160 . 1 `uc 1 . 1 0 :1:0 
+[s S252 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 GO_DONE 1 0 :1:1 
 ]
-[u S163 . 1 `S143 1 . 1 0 `S148 1 . 1 0 `S157 1 . 1 0 `S160 1 . 1 0 ]
-[v _ADCON0bits ADCON0bits `VES163  1 e 1 @31 ]
+[u S255 . 1 `S235 1 . 1 0 `S240 1 . 1 0 `S249 1 . 1 0 `S252 1 . 1 0 ]
+[v _ADCON0bits ADCON0bits `VES255  1 e 1 @31 ]
 "1478
 [v _TRISB TRISB `VEuc  1 e 1 @134 ]
-"1602
-[v _TRISD TRISD `VEuc  1 e 1 @136 ]
-[s S81 . 1 `uc 1 SCS 1 0 :1:0 
+[s S106 . 1 `uc 1 TRISC0 1 0 :1:0 
+`uc 1 TRISC1 1 0 :1:1 
+`uc 1 TRISC2 1 0 :1:2 
+`uc 1 TRISC3 1 0 :1:3 
+`uc 1 TRISC4 1 0 :1:4 
+`uc 1 TRISC5 1 0 :1:5 
+`uc 1 TRISC6 1 0 :1:6 
+`uc 1 TRISC7 1 0 :1:7 
+]
+"1557
+[u S115 . 1 `S106 1 . 1 0 ]
+[v _TRISCbits TRISCbits `VES115  1 e 1 @135 ]
+[s S127 . 1 `uc 1 TRISD0 1 0 :1:0 
+`uc 1 TRISD1 1 0 :1:1 
+`uc 1 TRISD2 1 0 :1:2 
+`uc 1 TRISD3 1 0 :1:3 
+`uc 1 TRISD4 1 0 :1:4 
+`uc 1 TRISD5 1 0 :1:5 
+`uc 1 TRISD6 1 0 :1:6 
+`uc 1 TRISD7 1 0 :1:7 
+]
+"1619
+[u S136 . 1 `S127 1 . 1 0 ]
+[v _TRISDbits TRISDbits `VES136  1 e 1 @136 ]
+[s S216 . 1 `uc 1 TMR1IE 1 0 :1:0 
+`uc 1 TMR2IE 1 0 :1:1 
+`uc 1 CCP1IE 1 0 :1:2 
+`uc 1 SSPIE 1 0 :1:3 
+`uc 1 TXIE 1 0 :1:4 
+`uc 1 RCIE 1 0 :1:5 
+`uc 1 ADIE 1 0 :1:6 
+]
+"1718
+[u S224 . 1 `S216 1 . 1 0 ]
+[v _PIE1bits PIE1bits `VES224  1 e 1 @140 ]
+[s S150 . 1 `uc 1 SCS 1 0 :1:0 
 `uc 1 LTS 1 0 :1:1 
 `uc 1 HTS 1 0 :1:2 
 `uc 1 OSTS 1 0 :1:3 
 `uc 1 IRCF 1 0 :3:4 
 ]
 "1882
-[s S87 . 1 `uc 1 . 1 0 :4:0 
+[s S156 . 1 `uc 1 . 1 0 :4:0 
 `uc 1 IRCF0 1 0 :1:4 
 `uc 1 IRCF1 1 0 :1:5 
 `uc 1 IRCF2 1 0 :1:6 
 ]
-[u S92 . 1 `S81 1 . 1 0 `S87 1 . 1 0 ]
-[v _OSCCONbits OSCCONbits `VES92  1 e 1 @143 ]
-[s S322 . 1 `uc 1 TX9D 1 0 :1:0 
-`uc 1 TRMT 1 0 :1:1 
-`uc 1 BRGH 1 0 :1:2 
-`uc 1 SENDB 1 0 :1:3 
-`uc 1 SYNC 1 0 :1:4 
-`uc 1 TXEN 1 0 :1:5 
-`uc 1 TX9 1 0 :1:6 
-`uc 1 CSRC 1 0 :1:7 
-]
-"2582
-[s S331 . 1 `uc 1 TXD8 1 0 :1:0 
-`uc 1 . 1 0 :5:1 
-`uc 1 nTX8 1 0 :1:6 
-]
-[s S335 . 1 `uc 1 . 1 0 :6:0 
-`uc 1 TX8_9 1 0 :1:6 
-]
-[u S338 . 1 `S322 1 . 1 0 `S331 1 . 1 0 `S335 1 . 1 0 ]
-[v _TXSTAbits TXSTAbits `VES338  1 e 1 @152 ]
+[u S161 . 1 `S150 1 . 1 0 `S156 1 . 1 0 ]
+[v _OSCCONbits OSCCONbits `VES161  1 e 1 @143 ]
 "2642
 [v _SPBRG SPBRG `VEuc  1 e 1 @153 ]
 "2704
 [v _SPBRGH SPBRGH `VEuc  1 e 1 @154 ]
-[s S273 . 1 `uc 1 . 1 0 :4:0 
+[s S398 . 1 `uc 1 . 1 0 :4:0 
 `uc 1 VCFG0 1 0 :1:4 
 `uc 1 VCFG1 1 0 :1:5 
 `uc 1 . 1 0 :1:6 
 `uc 1 ADFM 1 0 :1:7 
 ]
 "2991
-[u S279 . 1 `S273 1 . 1 0 ]
-[v _ADCON1bits ADCON1bits `VES279  1 e 1 @159 ]
-[s S359 . 1 `uc 1 ABDEN 1 0 :1:0 
+[u S404 . 1 `S398 1 . 1 0 ]
+[v _ADCON1bits ADCON1bits `VES404  1 e 1 @159 ]
+[s S447 . 1 `uc 1 ABDEN 1 0 :1:0 
 `uc 1 WUE 1 0 :1:1 
 `uc 1 . 1 0 :1:2 
 `uc 1 BRG16 1 0 :1:3 
@@ -167,11 +200,11 @@
 `uc 1 ABDOVF 1 0 :1:7 
 ]
 "3352
-[u S368 . 1 `S359 1 . 1 0 ]
-[v _BAUDCTLbits BAUDCTLbits `VES368  1 e 1 @391 ]
+[u S456 . 1 `S447 1 . 1 0 ]
+[v _BAUDCTLbits BAUDCTLbits `VES456  1 e 1 @391 ]
 "3387
 [v _ANSEL ANSEL `VEuc  1 e 1 @392 ]
-[s S56 . 1 `uc 1 ANS0 1 0 :1:0 
+[s S84 . 1 `uc 1 ANS0 1 0 :1:0 
 `uc 1 ANS1 1 0 :1:1 
 `uc 1 ANS2 1 0 :1:2 
 `uc 1 ANS3 1 0 :1:3 
@@ -181,129 +214,143 @@
 `uc 1 ANS7 1 0 :1:7 
 ]
 "3404
-[u S65 . 1 `S56 1 . 1 0 ]
-[v _ANSELbits ANSELbits `VES65  1 e 1 @392 ]
+[u S93 . 1 `S84 1 . 1 0 ]
+[v _ANSELbits ANSELbits `VES93  1 e 1 @392 ]
 "3449
 [v _ANSELH ANSELH `VEuc  1 e 1 @393 ]
 "4196
 [v _RD5 RD5 `VEb  1 e 0 @69 ]
+"4199
+[v _RD6 RD6 `VEb  1 e 0 @70 ]
 "4202
 [v _RD7 RD7 `VEb  1 e 0 @71 ]
 "56 C:\Users\Andy Bonilla\Documents\GitHub\ED2\Lab2.1_ED2\lab2.1_ED2.X\main_.c
 [v _conversion1 conversion1 `uc  1 e 1 0 ]
 "57
 [v _conversion2 conversion2 `uc  1 e 1 0 ]
-"67
+"58
+[v _cuenta_uart cuenta_uart `uc  1 e 1 0 ]
+"59
+[v _dato_recibido dato_recibido `uc  1 e 1 0 ]
+"78
 [v _main main `(v  1 e 1 0 ]
 {
-"90
+"99
 } 0
-"132
+"144
 [v _toggle_adc toggle_adc `(v  1 e 1 0 ]
 {
-"162
+"168
 } 0
-"94
+"72 C:\Users\Andy Bonilla\Documents\GitHub\ED2\Lab2.1_ED2\lab2.1_ED2.X\LCD.c
+[v _show show `(v  1 e 1 0 ]
+{
+[v show@s s `*.26uc  1 p 2 34 ]
+"78
+} 0
+"61
+[v _dat dat `(v  1 e 1 0 ]
+{
+[v dat@b b `uc  1 a 1 wreg ]
+[v dat@b b `uc  1 a 1 wreg ]
+"63
+[v dat@b b `uc  1 a 1 0 ]
+"69
+} 0
+"103 C:\Users\Andy Bonilla\Documents\GitHub\ED2\Lab2.1_ED2\lab2.1_ED2.X\main_.c
 [v _setup setup `(v  1 e 1 0 ]
 {
-"126
+"138
+} 0
+"19 C:\Users\Andy Bonilla\Documents\GitHub\ED2\Lab2.1_ED2\lab2.1_ED2.X\UART_CONFIG.c
+[v _uart_config uart_config `(v  1 e 1 0 ]
+{
+"32
 } 0
 "22 C:\Users\Andy Bonilla\Documents\GitHub\ED2\Lab2.1_ED2\lab2.1_ED2.X\ADC_CONFIG.c
 [v _adc_config adc_config `(v  1 e 1 0 ]
 {
-"34
+"33
 } 0
-"218 C:\Users\Andy Bonilla\Documents\GitHub\ED2\Lab2.1_ED2\lab2.1_ED2.X\main_.c
+"81 C:\Users\Andy Bonilla\Documents\GitHub\ED2\Lab2.1_ED2\lab2.1_ED2.X\LCD.c
+[v _lcd_linea lcd_linea `(v  1 e 1 0 ]
+{
+[v lcd_linea@a a `uc  1 a 1 wreg ]
+"82
+[v lcd_linea@z z `uc  1 a 1 5 ]
+[v lcd_linea@temp temp `uc  1 a 1 4 ]
+"81
+[v lcd_linea@a a `uc  1 a 1 wreg ]
+[v lcd_linea@b b `uc  1 p 1 1 ]
+"83
+[v lcd_linea@a a `uc  1 a 1 3 ]
+"97
+} 0
+"36
+[v _lcd_init lcd_init `(v  1 e 1 0 ]
+{
+"47
+} 0
+"29
+[v _lcd_clear lcd_clear `(v  1 e 1 0 ]
+{
+"33
+} 0
+"50
+[v _cmd cmd `(v  1 e 1 0 ]
+{
+[v cmd@a a `uc  1 a 1 wreg ]
+[v cmd@a a `uc  1 a 1 wreg ]
+"52
+[v cmd@a a `uc  1 a 1 0 ]
+"58
+} 0
+"222 C:\Users\Andy Bonilla\Documents\GitHub\ED2\Lab2.1_ED2\lab2.1_ED2.X\main_.c
 [v _lcd_ascii lcd_ascii `(uc  1 e 1 0 ]
 {
-"220
-[v lcd_ascii@random random `[16]uc  1 a 16 5 ]
-"238
+"224
+[v lcd_ascii@random random `[16]uc  1 a 16 18 ]
+"242
 } 0
-"166
+"172
 [v _datos_ascii datos_ascii `(uc  1 e 1 0 ]
 {
 [v datos_ascii@numero numero `uc  1 a 1 wreg ]
 [v datos_ascii@numero numero `uc  1 a 1 wreg ]
-[v datos_ascii@numero numero `uc  1 a 1 2 ]
-"215
+[v datos_ascii@numero numero `uc  1 a 1 6 ]
+"219
 } 0
 "5 C:\Program Files\Microchip\xc8\v2.31\pic\sources\c90\common\awmod.c
 [v ___awmod __awmod `(i  1 e 2 0 ]
 {
 "10
-[v ___awmod@sign sign `uc  1 a 1 1 ]
-[v ___awmod@counter counter `uc  1 a 1 0 ]
+[v ___awmod@sign sign `uc  1 a 1 14 ]
+[v ___awmod@counter counter `uc  1 a 1 13 ]
 "5
-[v ___awmod@divisor divisor `i  1 p 2 9 ]
-[v ___awmod@dividend dividend `i  1 p 2 11 ]
+[v ___awmod@divisor divisor `i  1 p 2 8 ]
+[v ___awmod@dividend dividend `i  1 p 2 10 ]
 "34
 } 0
 "5 C:\Program Files\Microchip\xc8\v2.31\pic\sources\c90\common\awdiv.c
 [v ___awdiv __awdiv `(i  1 e 2 0 ]
 {
 "10
-[v ___awdiv@quotient quotient `i  1 a 2 7 ]
+[v ___awdiv@quotient quotient `i  1 a 2 6 ]
 "11
-[v ___awdiv@sign sign `uc  1 a 1 6 ]
-[v ___awdiv@counter counter `uc  1 a 1 5 ]
+[v ___awdiv@sign sign `uc  1 a 1 5 ]
+[v ___awdiv@counter counter `uc  1 a 1 4 ]
 "5
 [v ___awdiv@divisor divisor `i  1 p 2 0 ]
 [v ___awdiv@dividend dividend `i  1 p 2 2 ]
 "41
 } 0
-"155 C:\Users\Andy Bonilla\Documents\GitHub\ED2\Lab2.1_ED2\lab2.1_ED2.X\LCD.c
-[v _Lcd_Write_String Lcd_Write_String `(v  1 e 1 0 ]
+"64 C:\Users\Andy Bonilla\Documents\GitHub\ED2\Lab2.1_ED2\lab2.1_ED2.X\main_.c
+[v _isr isr `II(v  1 e 1 0 ]
 {
-"157
-[v Lcd_Write_String@i i `i  1 a 2 23 ]
-"155
-[v Lcd_Write_String@a a `*.26uc  1 p 2 21 ]
-"160
+"73
 } 0
-"145
-[v _Lcd_Write_Char Lcd_Write_Char `(v  1 e 1 0 ]
+"245
+[v _recepcion_uart recepcion_uart `(v  1 e 1 0 ]
 {
-[v Lcd_Write_Char@a a `uc  1 a 1 wreg ]
-[v Lcd_Write_Char@a a `uc  1 a 1 wreg ]
-"147
-[v Lcd_Write_Char@a a `uc  1 a 1 2 ]
-"153
-} 0
-"127
-[v _Lcd_Set_Cursor Lcd_Set_Cursor `(v  1 e 1 0 ]
-{
-[v Lcd_Set_Cursor@a a `uc  1 a 1 wreg ]
-"129
-[v Lcd_Set_Cursor@z z `uc  1 a 1 8 ]
-[v Lcd_Set_Cursor@temp temp `uc  1 a 1 7 ]
-"127
-[v Lcd_Set_Cursor@a a `uc  1 a 1 wreg ]
-[v Lcd_Set_Cursor@b b `uc  1 p 1 4 ]
-"130
-[v Lcd_Set_Cursor@a a `uc  1 a 1 6 ]
-"142
-} 0
-"102
-[v _Lcd_Init Lcd_Init `(v  1 e 1 0 ]
-{
-"109
-} 0
-"111
-[v _Lcd_Cmd Lcd_Cmd `(v  1 e 1 0 ]
-{
-[v Lcd_Cmd@a a `uc  1 a 1 wreg ]
-[v Lcd_Cmd@a a `uc  1 a 1 wreg ]
-"114
-[v Lcd_Cmd@a a `uc  1 a 1 3 ]
-"119
-} 0
-"97
-[v _Lcd_Port Lcd_Port `(v  1 e 1 0 ]
-{
-[v Lcd_Port@a a `uc  1 a 1 wreg ]
-[v Lcd_Port@a a `uc  1 a 1 wreg ]
-"99
-[v Lcd_Port@a a `uc  1 a 1 0 ]
-"100
+"258
 } 0

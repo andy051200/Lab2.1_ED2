@@ -10,7 +10,7 @@
  -----------------------------------------------------------------------------*/
 #include <xc.h>                 //se incluye libreria del compilador
 #include "uart_config.h"
-#define _XTAL_FREQ 4000000
+//#define _XTAL_FREQ 4000000
 
 /*-----------------------------------------------------------------------------
 -------------------------- FUNCION DE LIBRERIA --------------------------------
@@ -19,9 +19,6 @@
 void uart_config(void)
 {
     //CONFIGURACION DE UART
-    //transmision
-    TXSTAbits.SYNC = 0;
-    TXSTAbits.BRGH = 1;
     //braudeaje
     BAUDCTLbits.BRG16 = 1;
     SPBRG = 25;         // SPBRGH:SPBRG = 25
@@ -31,5 +28,5 @@ void uart_config(void)
     RCSTAbits.RX9 = 0;
     //se encienden modulos
     RCSTAbits.CREN = 1;
-    TXSTAbits.TXEN = 1;
+    //TXSTAbits.TXEN = 1;
 }

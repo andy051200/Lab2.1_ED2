@@ -20,14 +20,26 @@
  -----------------------------------------------------------------------------*/
 #include <xc.h>
 #include "LCD.h"
-
+#define _XTAL_FREQ 4000000
 /*-----------------------------------------------------------------------------
 -------------------------------- FUNCIONES -----------------------------------
 -----------------------------------------------------------------------------*/
 
-//--------funcion para inicializar el lcd
-/*void lcd_init()
+//--------funcion para limpiar
+void lcd_clear(void)
 {
+    cmd(0);
+    cmd(1);
+}
+
+//--------funcion para inicializar el lcd
+void lcd_init()
+{
+    cmd(0x30);		// Configure the LCD in 8-bit mode, 2 line and 5x7 font
+	cmd(0x0C);		// Display On and Cursor Off
+	cmd(0x01);		// Clear display screen
+	cmd(0x06);		// Increment cursor
+	cmd(0x80);		// Set cursor position to 1st line, 1st column
 	cmd(0x38);
 	cmd(0x0c);
 	cmd(0x06);
@@ -93,7 +105,12 @@ void lcd_mov_derecha(void) {
 void lcd_mov_izquierda(void) {
     cmd(0x18);      //se agrupan los dos nibbles en un byte
 }
-*/
+
+
+
+//CUELLAR
+
+/*
 void Lcd_Port(char a)
 {
 	PORTD = a;
@@ -168,3 +185,29 @@ void Lcd_Shift_Left()
 {
 	Lcd_Cmd(0x018);
 }
+*/
+
+//STACK OVERFLOW
+/*void Lcd_CmdWrite(char cmd)
+{
+    LcdDataBus = cmd;               //Send the Command nibble
+    LcdControlBus &= ~(1<<LCD_RS);  // Send LOW pulse on RS pin for selecting Command register
+    LcdControlBus &= ~(1<<LCD_RW);  // Send LOW pulse on RW pin for Write operation
+    LcdControlBus |= (1<<LCD_EN);   // Generate a High-to-low pulse on EN pin
+    __delay_us(100);
+    LcdControlBus &= ~(1<<LCD_EN); 
+
+    __delay_us(10000);
+}
+
+void Lcd_DataWrite(char dat)
+{
+    LcdDataBus = dat;               //Send the data on DataBus nibble
+    LcdControlBus |= (1<<LCD_RS);   // Send HIGH pulse on RS pin for selecting data register
+    LcdControlBus &= ~(1<<LCD_RW);  // Send LOW pulse on RW pin for Write operation
+    LcdControlBus |= (1<<LCD_EN);   // Generate a High-to-low pulse on EN pin
+    __delay_us(100);
+    LcdControlBus &= ~(1<<LCD_EN);
+
+    __delay_us(10000);
+}*/

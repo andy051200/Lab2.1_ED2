@@ -2491,89 +2491,99 @@ extern __bank0 __bit __timeout;
 # 21 "LCD.c" 2
 
 # 1 "./LCD.h" 1
-# 42 "./LCD.h"
-void Lcd_Port(char a);
-void Lcd_Cmd(char a);
-void Lcd_Clear(void);
-void Lcd_Set_Cursor(char a, char b);
-void Lcd_Init(void);
-void Lcd_Write_Char(char a);
-void Lcd_Write_String(char *a);
-void Lcd_Shift_Right(void);
-void Lcd_Shift_Left(void);
+# 37 "./LCD.h"
+void lcd_init();
+void lcd_clear(void);
+void cmd(unsigned char a);
+void dat(unsigned char b);
+void show(unsigned char *s);
+void lcd_linea(char a, char b);
+void lcd_mov_derecha(void);
+void lcd_mov_izquierda(void);
 # 22 "LCD.c" 2
-# 97 "LCD.c"
-void Lcd_Port(char a)
+
+
+
+
+
+
+
+void lcd_clear(void)
 {
- PORTD = a;
+    cmd(0);
+    cmd(1);
 }
 
-void Lcd_Init()
-{
-    Lcd_Cmd(0x38);
-    Lcd_Cmd(0x0c);
-    Lcd_Cmd(0x06);
-    Lcd_Cmd(0x80);
 
+void lcd_init()
+{
+    cmd(0x30);
+ cmd(0x0C);
+ cmd(0x01);
+ cmd(0x06);
+ cmd(0x80);
+ cmd(0x38);
+ cmd(0x0c);
+ cmd(0x06);
+ cmd(0x80);
 }
 
-void Lcd_Cmd(char a)
-{
 
- Lcd_Port(a);
-    RD5 = 0;
- RD7 = 1;
-    _delay((unsigned long)((5)*(4000000/4000.0)));
-    RD7 = 0;
+void cmd(unsigned char a)
+{
+ PORTB=a;
+ RD5=0;
+ RD6=0;
+ RD7=1;
+    _delay((unsigned long)((1)*(4000000/4000.0)));
+ RD7=0;
 }
 
-void Lcd_Clear(void)
+
+void dat(unsigned char b)
 {
- Lcd_Cmd(0);
- Lcd_Cmd(1);
+ PORTB=b;
+ RD5=1;
+ RD6=0;
+ RD7=1;
+ _delay((unsigned long)((1)*(4000000/4000.0)));
+ RD7=0;
 }
 
-void Lcd_Set_Cursor(char a, char b)
+
+void show(unsigned char *s)
 {
- char temp,z,y;
- if(a == 1)
- {
-   temp = 0x80 + b - 1;
-  z = temp;
-  Lcd_Cmd(z);
+ while(*s) {
+  dat(*s++);
+        _delay((unsigned long)((40)*(4000000/4000000.0)));
  }
- else if(a == 2)
- {
-  temp = 0xC0 + b - 1;
-  z = temp;
-  Lcd_Cmd(z);
- }
 }
 
 
-void Lcd_Write_Char(char a)
-{
-   RD5 = 1;
-   Lcd_Port(a);
-   RD7 = 1;
-   _delay((unsigned long)((40)*(4000000/4000000.0)));
-   RD7 = 0;
-   RD5 = 0;
+void lcd_linea(char a, char b) {
+    char temp, z;
+    if (a == 1)
+    {
+        temp = 0x80 + b - 1;
+        z = temp;
+        cmd(z);
+
+    }
+    else if (a == 2)
+    {
+        temp = 0xC0 + b - 1;
+        z = temp;
+        cmd(z);
+
+    }
 }
 
-void Lcd_Write_String(char *a)
-{
- int i;
- for(i=0;a[i]!='\0';i++)
-    Lcd_Write_Char(a[i]);
+
+void lcd_mov_derecha(void) {
+    cmd(0x1c);
 }
 
-void Lcd_Shift_Right()
-{
- Lcd_Cmd(0x1C);
-}
 
-void Lcd_Shift_Left()
-{
- Lcd_Cmd(0x018);
+void lcd_mov_izquierda(void) {
+    cmd(0x18);
 }

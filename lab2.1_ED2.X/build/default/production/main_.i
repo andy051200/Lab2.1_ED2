@@ -2646,16 +2646,15 @@ typedef uint16_t uintptr_t;
 
 
 # 1 "./LCD.h" 1
-# 42 "./LCD.h"
-void Lcd_Port(char a);
-void Lcd_Cmd(char a);
-void Lcd_Clear(void);
-void Lcd_Set_Cursor(char a, char b);
-void Lcd_Init(void);
-void Lcd_Write_Char(char a);
-void Lcd_Write_String(char *a);
-void Lcd_Shift_Right(void);
-void Lcd_Shift_Left(void);
+# 37 "./LCD.h"
+void lcd_init();
+void lcd_clear(void);
+void cmd(unsigned char a);
+void dat(unsigned char b);
+void show(unsigned char *s);
+void lcd_linea(char a, char b);
+void lcd_mov_derecha(void);
+void lcd_mov_izquierda(void);
 # 36 "main_.c" 2
 
 # 1 "./ADC_CONFIG.h" 1
@@ -2672,35 +2671,51 @@ void setup(void);
 void toggle_adc(void);
 unsigned char datos_ascii(uint8_t numero);
 uint8_t lcd_ascii();
-
+void recepcion_uart(void);
 
 
 
 unsigned char conversion1;
 unsigned char conversion2;
-unsigned char cuenta_uart;
-# 67 "main_.c"
+unsigned char cuenta_uart=0;
+unsigned char dato_recibido;
+
+
+
+
+void __attribute__((picinterrupt(("")))) isr(void)
+{
+
+     if(PIR1bits.RCIF)
+    {
+        dato_recibido=RCREG;
+        PIR1bits.RCIF=0;
+        recepcion_uart();
+    }
+}
+
+
+
+
 void main(void)
 {
     setup();
 
-
-    Lcd_Init();
-    Lcd_Cmd(0x8A);
+    lcd_clear();
+    lcd_init();
+ cmd(0x90);
 
     while(1)
     {
 
         toggle_adc();
 
-        Lcd_Set_Cursor(1,1);
-        Lcd_Write_String("S1    S2    S3");
-        Lcd_Set_Cursor(2,1);
-        Lcd_Write_String(lcd_ascii());
 
 
-
-
+        lcd_linea(1,1);
+        show(" S1   S2   S3 ");
+        lcd_linea(2,1);
+        show(lcd_ascii());
     }
 
 }
@@ -2717,9 +2732,12 @@ void setup(void)
 
 
     TRISB=0;
-    TRISD=0;
+    TRISCbits.TRISC6=0;
+    TRISCbits.TRISC7=1;
 
-
+    TRISDbits.TRISD5=0;
+    TRISDbits.TRISD6=0;
+    TRISDbits.TRISD7=0;
 
 
     PORTB=0;
@@ -2733,12 +2751,12 @@ void setup(void)
     adc_config();
 
 
+    uart_config();
 
 
     INTCONbits.GIE=1;
-
-
-
+    PIE1bits.RCIE=1;
+    PIR1bits.RCIF=0;
 }
 
 
@@ -2751,12 +2769,6 @@ void toggle_adc(void)
     {
         switch(ADCON0bits.CHS)
         {
-
-
-
-
-
-
             case(0):
                 conversion1=ADRESH;
                 _delay((unsigned long)((100)*(4000000/4000000.0)));
@@ -2825,9 +2837,7 @@ unsigned char datos_ascii(uint8_t numero)
         case(9):
             return 0x39;
             break;
-
     }
-
 }
 
 
@@ -2845,10 +2855,26 @@ uint8_t lcd_ascii()
     random[8]=datos_ascii((2*conversion2)%10);
     random[9]=32;
     random[10]=datos_ascii(cuenta_uart);
-    random[11]=0x2E;
-    random[12]=datos_ascii(cuenta_uart);
-    random[13]=datos_ascii(cuenta_uart);
+    random[11]=32;
+    random[12]=32;
+    random[13]=32;
     random[14]=32;
     random[15]=32;
     return random;
+}
+
+
+void recepcion_uart(void)
+{
+    switch(dato_recibido)
+    {
+        case(1):
+            cuenta_uart++;
+            break;
+
+        case(2):
+            cuenta_uart--;
+            break;
+
+    }
 }

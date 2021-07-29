@@ -300,7 +300,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 "32
 [; ;ADC_CONFIG.c: 32:     ADCON0bits.ADON = 1 ;
 [e = . . _ADCON0bits 0 0 -> -> 1 `i `uc ]
-"34
-[; ;ADC_CONFIG.c: 34: }
+"33
+[; ;ADC_CONFIG.c: 33: }
 [e :UE 138 ]
 }

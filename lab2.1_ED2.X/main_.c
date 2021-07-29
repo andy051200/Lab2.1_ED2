@@ -49,17 +49,28 @@ void setup(void);
 void toggle_adc(void);                      //toggle de canales de adc
 unsigned char datos_ascii(uint8_t numero);  //conversion de numeros a ascii
 uint8_t lcd_ascii();                        //cadena de caracteres para lcd
-
+void recepcion_uart(void);
 /*-----------------------------------------------------------------------------
  ----------------------- VARIABLES A IMPLEMTENTAR------------------------------
  -----------------------------------------------------------------------------*/
 unsigned char conversion1;          //variable de potenciometro1
 unsigned char conversion2;          //variable de potenciometro2
-unsigned char cuenta_uart;          //variable de cuenta en uart
+unsigned char cuenta_uart=0;          //variable de cuenta en uart
+unsigned char dato_recibido;        //variable de recepcion uart
 
 /*-----------------------------------------------------------------------------
  ---------------------------- INTERRUPCIONES ----------------------------------
  -----------------------------------------------------------------------------*/
+void __interrupt() isr(void) //funcion de interrupciones
+{
+    //------interrupcion por recepcion uart
+     if(PIR1bits.RCIF)
+    {
+        dato_recibido=RCREG;    //se almacena dato recibido en variable
+        PIR1bits.RCIF=0;
+        recepcion_uart();
+    }
+}
 
 /*-----------------------------------------------------------------------------
  ----------------------------- MAIN LOOP --------------------------------------
@@ -67,24 +78,22 @@ unsigned char cuenta_uart;          //variable de cuenta en uart
 void main(void)
 {
     setup();
-    /*lcd_init();         //invoco la funcion de inicializacion de la lcd
-	cmd(0x90);          //invocao la funcion de configurcion de comandos lc*/
-    Lcd_Init();
-    Lcd_Cmd(0x8A);
+    
+    lcd_clear();
+    lcd_init();         //invoco la funcion de inicializacion de la lcd
+	cmd(0x90);          //invocao la funcion de configurcion de comandos lc
     
     while(1)
     {
-        //------
+        //------llamado de funcion para swtich de canalaes del adc
         toggle_adc();
-        //------
-        Lcd_Set_Cursor(1,1);
-        Lcd_Write_String("S1    S2    S3");
-        Lcd_Set_Cursor(2,1);
-        Lcd_Write_String(lcd_ascii());
-        /*lcd_linea(1,1);             //selecciono la linea 1 para escribir
-        show(" S1   S2   S3 ");//mensaje a enviar linea 1
+        //------llamado de funcion para recepcion de datos uart
+        //recepcion_uart();
+        //------llamado de funciones para desplegar valores en lcd
+        lcd_linea(1,1);             //selecciono la linea 1 para escribir
+        show(" S1   S2   S3 ");     //mensaje a enviar linea 1
         lcd_linea(2,1);             //selecciono la linea 2 para escibrir
-        show(lcd_ascii()); //mensaje a enviar linea 2*/
+        show(lcd_ascii());          //mensaje a enviar linea 2
     }
 
 }
@@ -101,10 +110,13 @@ void setup(void)
     
     //---------CONFIGURACION DE IN/OUT
     TRISB=0;             //todo el portB como salida
-    TRISD=0;             //todo el portB como salida
-    /*TRISDbits.TRISD5=0;     //salida para pines lcd
+    TRISCbits.TRISC6=0;     //salida TX
+    TRISCbits.TRISC7=1;     //entrada RX
+    //TRISD=0;             //todo el portB como salida
+    TRISDbits.TRISD5=0;     //salida para pines lcd
     TRISDbits.TRISD6=0;     //salida para pines lcd
-    TRISDbits.TRISD7=0;     //salida para pines lcd*/
+    TRISDbits.TRISD7=0;     //salida para pines lcd
+    
     //---------LIMPIEZA DE PUERTOS
     PORTB=0;
     PORTD=0;
@@ -117,12 +129,12 @@ void setup(void)
     adc_config();
     
     //---------LLAMADO DE FUNCION DE CONFIGURACION DE UART
+    uart_config();
     
     //---------CONFIGURACIOND DE INTERRUPCIONES
     INTCONbits.GIE=1;           //se habilita interrupciones globales
-    
-    
-    
+    PIE1bits.RCIE=1;            //se habilita interrupcion de recepcion uart
+    PIR1bits.RCIF=0;
 }
 /*-----------------------------------------------------------------------------
  --------------------------------- FUNCIONES ----------------------------------
@@ -135,12 +147,6 @@ void toggle_adc(void)
     {
         switch(ADCON0bits.CHS)
         {
-            /*default:
-                conversion1=ADRESH;         //potenciometro 1
-                __delay_us(100);            //delay para cargar capacitor          
-                ADCON0bits.CHS=1;           //switch de canal
-                break;*/
-                
             case(0):
                 conversion1=ADRESH;         //potenciometro 1
                 __delay_us(100);            //delay para cargar capacitor          
@@ -208,10 +214,8 @@ unsigned char datos_ascii(uint8_t numero)    //funcion para convertir a valores 
             
         case(9):
             return 0x39;        //retorna 9 en ascii
-            break;
-            
-    }
-    
+            break;       
+    }   
 }
 
 //--------funcion de cadena de caracteres para lcd
@@ -229,10 +233,26 @@ uint8_t lcd_ascii()
     random[8]=datos_ascii((2*conversion2)%10);   //unidades de potenciometro 2
     random[9]=32;                       //se deja espacio
     random[10]=datos_ascii(cuenta_uart);  //centenas de cuenta uart
-    random[11]=0x2E;                    //punto decimal
-    random[12]=datos_ascii(cuenta_uart);  //centenas de cuenta uart
-    random[13]=datos_ascii(cuenta_uart);  //centenas de cuenta uart
+    random[11]=32;      //0x2E; punto decimal
+    random[12]=32;      //datos_ascii(cuenta_uart);//centenas de cuenta uart
+    random[13]=32;      //datos_ascii(cuenta_uart);  //centenas de cuenta uart
     random[14]=32;                      //se deja espacio
     random[15]=32;                      //se deja espacio
     return random;                      //se retorna el valor para el lcd
+}
+
+//--------funcion para recepcion de datos desde la pc
+void recepcion_uart(void)
+{
+    switch(dato_recibido)
+    {
+        case(1):         //si recibe 48, equivalente a 1 en ascii
+            cuenta_uart++;
+            break;
+
+        case(2):         //si recibe 49, equivalente a 2 en ascii
+            cuenta_uart--;
+            break;
+
+    }
 }

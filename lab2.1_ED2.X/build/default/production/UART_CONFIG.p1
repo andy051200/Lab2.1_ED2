@@ -285,8 +285,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;UART_CONFIG.c: 23:     BAUDCTLbits.BRG16 = 1;
 [e = . . _BAUDCTLbits 0 3 -> -> 1 `i `uc ]
 "24
-[; ;UART_CONFIG.c: 24:     SPBRG = 25;
-[e = _SPBRG -> -> 25 `i `uc ]
+[; ;UART_CONFIG.c: 24:     SPBRG = 103;
+[e = _SPBRG -> -> 103 `i `uc ]
 "25
 [; ;UART_CONFIG.c: 25:     SPBRGH = 0;
 [e = _SPBRGH -> -> 0 `i `uc ]

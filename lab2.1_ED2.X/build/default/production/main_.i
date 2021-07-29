@@ -2686,11 +2686,15 @@ unsigned char dato_recibido;
 void __attribute__((picinterrupt(("")))) isr(void)
 {
 
-     if(PIR1bits.RCIF)
+    if(PIR1bits.RCIF)
     {
         dato_recibido=RCREG;
         PIR1bits.RCIF=0;
         recepcion_uart();
+    }
+    if (PIR1bits.ADIF)
+    {
+
     }
 }
 
@@ -2704,7 +2708,8 @@ void main(void)
     lcd_clear();
     lcd_init();
  cmd(0x90);
-
+    _delay((unsigned long)((1)*(4000000/4000.0)));
+    ADCON0bits.GO=1;
     while(1)
     {
 
@@ -2748,6 +2753,11 @@ void setup(void)
     OSCCONbits.SCS=1;
 
 
+    OPTION_REGbits.T0CS = 0;
+    OPTION_REGbits.PSA = 0;
+    OPTION_REGbits.PS = 0b111;
+    TMR0 = 25;
+
     adc_config();
 
 
@@ -2771,20 +2781,20 @@ void toggle_adc(void)
         {
             case(0):
                 conversion1=ADRESH;
-                _delay((unsigned long)((100)*(4000000/4000000.0)));
+                _delay((unsigned long)((500)*(4000000/4000000.0)));
                 ADCON0bits.CHS=1;
                 ADCON0bits.GO=1;
                 break;
 
             case(1):
                 conversion2=ADRESH;
-                _delay((unsigned long)((100)*(4000000/4000000.0)));
+                _delay((unsigned long)((500)*(4000000/4000000.0)));
                 ADCON0bits.CHS=0;
                 ADCON0bits.GO=1;
                 break;
 
-            _delay((unsigned long)((100)*(4000000/4000000.0)));
-            ADCON0bits.GO=1;
+            _delay((unsigned long)((500)*(4000000/4000000.0)));
+
         }
     }
 }
@@ -2854,7 +2864,7 @@ uint8_t lcd_ascii()
     random[7]=datos_ascii(((2*(conversion2)/100)%10));
     random[8]=datos_ascii((2*conversion2)%10);
     random[9]=32;
-    random[10]=datos_ascii(cuenta_uart);
+    random[10]=datos_ascii(((conversion1/100)%10));
     random[11]=32;
     random[12]=32;
     random[13]=32;
@@ -2868,11 +2878,11 @@ void recepcion_uart(void)
 {
     switch(dato_recibido)
     {
-        case(1):
+        case(49):
             cuenta_uart++;
             break;
 
-        case(2):
+        case(50):
             cuenta_uart--;
             break;
 

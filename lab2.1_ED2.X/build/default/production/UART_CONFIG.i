@@ -2506,7 +2506,7 @@ void uart_config(void)
 
 
     BAUDCTLbits.BRG16 = 1;
-    SPBRG = 25;
+    SPBRG = 103;
     SPBRGH = 0;
 
     RCSTAbits.SPEN = 1;

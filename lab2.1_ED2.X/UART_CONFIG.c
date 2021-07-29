@@ -21,7 +21,7 @@ void uart_config(void)
     //CONFIGURACION DE UART
     //braudeaje
     BAUDCTLbits.BRG16 = 1;
-    SPBRG = 25;         // SPBRGH:SPBRG = 25
+    SPBRG = 103;             // SPBRGH:SPBRG = 25
     SPBRGH = 0;
     //recepcion
     RCSTAbits.SPEN = 1;

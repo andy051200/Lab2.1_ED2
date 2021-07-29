@@ -64,11 +64,15 @@ unsigned char dato_recibido;        //variable de recepcion uart
 void __interrupt() isr(void) //funcion de interrupciones
 {
     //------interrupcion por recepcion uart
-     if(PIR1bits.RCIF)
+    if(PIR1bits.RCIF)
     {
         dato_recibido=RCREG;    //se almacena dato recibido en variable
         PIR1bits.RCIF=0;
         recepcion_uart();
+    }
+    if (PIR1bits.ADIF)
+    {
+        
     }
 }
 
@@ -82,7 +86,8 @@ void main(void)
     lcd_clear();
     lcd_init();         //invoco la funcion de inicializacion de la lcd
 	cmd(0x90);          //invocao la funcion de configurcion de comandos lc
-    
+    __delay_ms(1);
+    ADCON0bits.GO=1;
     while(1)
     {
         //------llamado de funcion para swtich de canalaes del adc
@@ -111,7 +116,7 @@ void setup(void)
     //---------CONFIGURACION DE IN/OUT
     TRISB=0;             //todo el portB como salida
     TRISCbits.TRISC6=0;     //salida TX
-    TRISCbits.TRISC7=1;     //entrada RX
+    TRISCbits.TRISC7=1;
     //TRISD=0;             //todo el portB como salida
     TRISDbits.TRISD5=0;     //salida para pines lcd
     TRISDbits.TRISD6=0;     //salida para pines lcd
@@ -125,6 +130,11 @@ void setup(void)
     OSCCONbits.IRCF=0b110;      //Freq a 8MHz
     OSCCONbits.SCS=1;           //Oscilador interno
     
+    //---------CONFIGURACION DE TIMER0
+    OPTION_REGbits.T0CS = 0;    //Uso reloj interno
+    OPTION_REGbits.PSA = 0;     //Uso pre-escaler
+    OPTION_REGbits.PS = 0b111;  //PS = 111 / 1:256
+    TMR0 = 25;
     //---------LLAMADO DE FUNCION DE CONFIGURACION DE ADC
     adc_config();
     
@@ -149,20 +159,20 @@ void toggle_adc(void)
         {
             case(0):
                 conversion1=ADRESH;         //potenciometro 1
-                __delay_us(100);            //delay para cargar capacitor          
+                __delay_us(500);            //delay para cargar capacitor          
                 ADCON0bits.CHS=1;           //switch de canal
                 ADCON0bits.GO=1;            //se inicia otra conversion ADC
                 break;
                     
             case(1):
                 conversion2=ADRESH;         //potenciometro 2
-                __delay_us(100);            //delay para cargar capacitor
+                __delay_us(500);            //delay para cargar capacitor
                 ADCON0bits.CHS=0;           //switch de canal
                 ADCON0bits.GO=1;            //se inicia otra conversion ADC
                 break;
             
-            __delay_us(100);                //delay para carga de capacitor
-            ADCON0bits.GO=1;                //se inicia otra conversion ADC
+            __delay_us(500);                //delay para carga de capacitor
+           
         }
     }
 }
@@ -232,10 +242,10 @@ uint8_t lcd_ascii()
     random[7]=datos_ascii(((2*(conversion2)/100)%10));    //decenas de potenciometro 2
     random[8]=datos_ascii((2*conversion2)%10);   //unidades de potenciometro 2
     random[9]=32;                       //se deja espacio
-    random[10]=datos_ascii(cuenta_uart);  //centenas de cuenta uart
-    random[11]=32;      //0x2E; punto decimal
-    random[12]=32;      //datos_ascii(cuenta_uart);//centenas de cuenta uart
-    random[13]=32;      //datos_ascii(cuenta_uart);  //centenas de cuenta uart
+    random[10]=datos_ascii(((conversion1/100)%10));  //centenas de cuenta uart
+    random[11]=32;      
+    random[12]=32;      
+    random[13]=32;      
     random[14]=32;                      //se deja espacio
     random[15]=32;                      //se deja espacio
     return random;                      //se retorna el valor para el lcd
@@ -246,11 +256,11 @@ void recepcion_uart(void)
 {
     switch(dato_recibido)
     {
-        case(1):         //si recibe 48, equivalente a 1 en ascii
+        case(49):         //si recibe 48, equivalente a 1 en ascii
             cuenta_uart++;
             break;
 
-        case(2):         //si recibe 49, equivalente a 2 en ascii
+        case(50):         //si recibe 49, equivalente a 2 en ascii
             cuenta_uart--;
             break;
 

@@ -12,11 +12,13 @@
 #include <stdint.h>             //se incluye libreria
 #include <pic16f887.h>          //se incluye libreria del pic
 #include "adc_config.h"
-#define _XTAL_FREQ 8000000
+#define _XTAL_FREQ 4000000
 
 /*-----------------------------------------------------------------------------
 -------------------------- FUNCION DE LIBRERIA --------------------------------
 -----------------------------------------------------------------------------*/
+
+//--------FUNCION DE CONFIGURACION DEL ADC
 void adc_config()
 {
     //CONFIGURACION DE ADC
@@ -30,3 +32,6 @@ void adc_config()
     ADCON0bits.ADON = 1 ;       // se prende modulo ADC
     //return;
 }
+
+
+

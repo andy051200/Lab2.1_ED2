@@ -11,15 +11,8 @@
 /*-----------------------------------------------------------------------------
  ------------- prototipo de funcion de configuracion de ADC -------------------
 -----------------------------------------------------------------------------*/
-void adc_config(void);  //prototipo de la funcion que hare del adc
+void adc_config(void);  //prototipo de la funcion que configuracion de adc
+//void toggle_adc(void);  //prototipo de la funcion de switcheo de canales
 
 
-/*
-#ifdef	__cplusplus
-extern "C" {
-#endif
-#ifdef	__cplusplus
-}
-#endif
-*/
 #endif	 ADC_CONFIG_H 

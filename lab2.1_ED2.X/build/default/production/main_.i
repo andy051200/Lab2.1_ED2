@@ -2646,14 +2646,16 @@ typedef uint16_t uintptr_t;
 
 
 # 1 "./LCD.h" 1
-# 35 "./LCD.h"
-void lcd_init();
-void cmd(unsigned char a);
-void dat(unsigned char b);
-void show(unsigned char *s);
-void lcd_linea(char a, char b);
-void lcd_mov_derecha(void);
-void lcd_mov_izquierda(void);
+# 42 "./LCD.h"
+void Lcd_Port(char a);
+void Lcd_Cmd(char a);
+void Lcd_Clear(void);
+void Lcd_Set_Cursor(char a, char b);
+void Lcd_Init(void);
+void Lcd_Write_Char(char a);
+void Lcd_Write_String(char *a);
+void Lcd_Shift_Right(void);
+void Lcd_Shift_Left(void);
 # 36 "main_.c" 2
 
 # 1 "./ADC_CONFIG.h" 1
@@ -2665,13 +2667,39 @@ void adc_config(void);
 # 17 "./UART_CONFIG.h"
 void uart_config(void);
 # 38 "main_.c" 2
-# 47 "main_.c"
+# 48 "main_.c"
 void setup(void);
-# 59 "main_.c"
+void toggle_adc(void);
+unsigned char datos_ascii(uint8_t numero);
+uint8_t lcd_ascii();
+
+
+
+
+unsigned char conversion1;
+unsigned char conversion2;
+unsigned char cuenta_uart;
+# 67 "main_.c"
 void main(void)
 {
+    setup();
+
+
+    Lcd_Init();
+    Lcd_Cmd(0x8A);
+
     while(1)
     {
+
+        toggle_adc();
+
+        Lcd_Set_Cursor(1,1);
+        Lcd_Write_String("S1    S2    S3");
+        Lcd_Set_Cursor(2,1);
+        Lcd_Write_String(lcd_ascii());
+
+
+
 
     }
 
@@ -2681,14 +2709,146 @@ void main(void)
 
 void setup(void)
 {
+
     ANSEL=0;
     ANSELH=0;
     ANSELbits.ANS0=1;
     ANSELbits.ANS1=1;
 
-    TRISB=0x00;
-    TRISDbits.TRISD5=0;
-    TRISDbits.TRISD6=0;
-    TRISDbits.TRISD7=0;
 
+    TRISB=0;
+    TRISD=0;
+
+
+
+
+    PORTB=0;
+    PORTD=0;
+
+
+    OSCCONbits.IRCF=0b110;
+    OSCCONbits.SCS=1;
+
+
+    adc_config();
+
+
+
+
+    INTCONbits.GIE=1;
+
+
+
+}
+
+
+
+
+
+void toggle_adc(void)
+{
+    if (ADCON0bits.GO==0)
+    {
+        switch(ADCON0bits.CHS)
+        {
+
+
+
+
+
+
+            case(0):
+                conversion1=ADRESH;
+                _delay((unsigned long)((100)*(4000000/4000000.0)));
+                ADCON0bits.CHS=1;
+                ADCON0bits.GO=1;
+                break;
+
+            case(1):
+                conversion2=ADRESH;
+                _delay((unsigned long)((100)*(4000000/4000000.0)));
+                ADCON0bits.CHS=0;
+                ADCON0bits.GO=1;
+                break;
+
+            _delay((unsigned long)((100)*(4000000/4000000.0)));
+            ADCON0bits.GO=1;
+        }
+    }
+}
+
+
+
+unsigned char datos_ascii(uint8_t numero)
+{
+    switch(numero)
+    {
+        default:
+            return 0x30;
+            break;
+        case(0):
+            return 0x30;
+            break;
+
+        case(1):
+            return 0x31;
+            break;
+
+        case(2):
+            return 0x32;
+            break;
+
+        case(3):
+            return 0x33;
+            break;
+
+        case(4):
+            return 0x34;
+            break;
+
+        case(5):
+            return 0x35;
+            break;
+
+        case(6):
+            return 0x36;
+            break;
+
+        case(7):
+            return 0x37;
+            break;
+
+        case(8):
+            return 0x38;
+            break;
+
+        case(9):
+            return 0x39;
+            break;
+
+    }
+
+}
+
+
+uint8_t lcd_ascii()
+{
+    uint8_t random[16];
+    random[0]=datos_ascii(((2*(conversion1)/100)%10));
+    random[1]=0x2E;
+    random[2]=datos_ascii(((2*(conversion1)/100)%10));
+    random[3]=datos_ascii((2*conversion1)%10);
+    random[4]=32;
+    random[5]=datos_ascii(((2*(conversion2)/100)%10));
+    random[6]=0x2E;
+    random[7]=datos_ascii(((2*(conversion2)/100)%10));
+    random[8]=datos_ascii((2*conversion2)%10);
+    random[9]=32;
+    random[10]=datos_ascii(cuenta_uart);
+    random[11]=0x2E;
+    random[12]=datos_ascii(cuenta_uart);
+    random[13]=datos_ascii(cuenta_uart);
+    random[14]=32;
+    random[15]=32;
+    return random;
 }

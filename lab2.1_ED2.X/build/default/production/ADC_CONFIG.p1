@@ -271,36 +271,36 @@ Version 4.0 HI-TECH Software Intermediate Code
 "3546
 [; ;C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f887.h: 3546: __asm("EECON2 equ 018Dh");
 [; <" EECON2 equ 018Dh ;# ">
-"20 ADC_CONFIG.c
-[; ;ADC_CONFIG.c: 20: void adc_config()
+"22 ADC_CONFIG.c
+[; ;ADC_CONFIG.c: 22: void adc_config()
 [v _adc_config `(v ~T0 @X0 1 ef ]
-"21
-[; ;ADC_CONFIG.c: 21: {
+"23
+[; ;ADC_CONFIG.c: 23: {
 {
 [e :U _adc_config ]
 [f ]
-"23
-[; ;ADC_CONFIG.c: 23:     ADCON1bits.ADFM = 0 ;
-[e = . . _ADCON1bits 0 4 -> -> 0 `i `uc ]
-"24
-[; ;ADC_CONFIG.c: 24:     ADCON1bits.VCFG0 = 0 ;
-[e = . . _ADCON1bits 0 1 -> -> 0 `i `uc ]
 "25
-[; ;ADC_CONFIG.c: 25:     ADCON1bits.VCFG1 = 0 ;
-[e = . . _ADCON1bits 0 2 -> -> 0 `i `uc ]
+[; ;ADC_CONFIG.c: 25:     ADCON1bits.ADFM = 0 ;
+[e = . . _ADCON1bits 0 4 -> -> 0 `i `uc ]
+"26
+[; ;ADC_CONFIG.c: 26:     ADCON1bits.VCFG0 = 0 ;
+[e = . . _ADCON1bits 0 1 -> -> 0 `i `uc ]
 "27
-[; ;ADC_CONFIG.c: 27:     ADCON0bits.ADCS = 0b01;
-[e = . . _ADCON0bits 0 3 -> -> 1 `i `uc ]
-"28
-[; ;ADC_CONFIG.c: 28:     ADCON0bits.CHS = 0;
-[e = . . _ADCON0bits 0 2 -> -> 0 `i `uc ]
+[; ;ADC_CONFIG.c: 27:     ADCON1bits.VCFG1 = 0 ;
+[e = . . _ADCON1bits 0 2 -> -> 0 `i `uc ]
 "29
-[; ;ADC_CONFIG.c: 29:     _delay((unsigned long)((50)*(8000000/4000000.0)));
-[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 8000000 `l `d .4000000.0 `ul ]
+[; ;ADC_CONFIG.c: 29:     ADCON0bits.ADCS = 0b01;
+[e = . . _ADCON0bits 0 3 -> -> 1 `i `uc ]
 "30
-[; ;ADC_CONFIG.c: 30:     ADCON0bits.ADON = 1 ;
-[e = . . _ADCON0bits 0 0 -> -> 1 `i `uc ]
+[; ;ADC_CONFIG.c: 30:     ADCON0bits.CHS = 0;
+[e = . . _ADCON0bits 0 2 -> -> 0 `i `uc ]
+"31
+[; ;ADC_CONFIG.c: 31:     _delay((unsigned long)((50)*(4000000/4000000.0)));
+[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 4000000 `l `d .4000000.0 `ul ]
 "32
-[; ;ADC_CONFIG.c: 32: }
+[; ;ADC_CONFIG.c: 32:     ADCON0bits.ADON = 1 ;
+[e = . . _ADCON0bits 0 0 -> -> 1 `i `uc ]
+"34
+[; ;ADC_CONFIG.c: 34: }
 [e :UE 138 ]
 }
